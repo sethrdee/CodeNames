@@ -1,0 +1,18 @@
+{
+  "name": "code-names-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+
+  },
+  "author": "Bryce Vonilten",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0"
+  }
+}
