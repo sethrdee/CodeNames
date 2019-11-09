@@ -32,7 +32,8 @@ io.on('connection', socket => {
     io.sockets.emit("outgoing data", data);
   })
   
-  socket.on('update data', (data) => {
+  socket.on('update data', (newData) => {
+    data = newData;
     io.sockets.emit("outgoing data", data);
   })
   
