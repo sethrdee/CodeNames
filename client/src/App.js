@@ -21,13 +21,17 @@ const App = () => {
 
   useEffect(() => {
     socket.on("outgoing data", data => setWords(data));
+    socket.on("outgoing new data", data => {
+      setSpymaster(false);
+      setWords(data)
+    });
     socket.on("outgoing turn change", turn => setRedsTurn(turn));
   }, []);
  
-  const nextTurn = () => {
-    setSpymaster(false);
-    socket.emit("change data");   
+  const nextRound = () => {
+    socket.emit("new round");   
   }
+  
   const changeTurn = () => socket.emit("change turn"); 
   
   useEffect(() => {  
@@ -111,7 +115,7 @@ const App = () => {
         <p style={{color: 'white', margin: '5px'}}> Spymaster View: </p>
         <Switch offColor="#5d0101" onColor="#005300" onChange={() => setSpymaster(!spymaster)} checked={spymaster} />
         </div>
-        <button style={{marginLeft: '20px', marginRight: '20px'}} onClick={() => nextTurn()}> New round </button>
+        <button style={{marginLeft: '20px', marginRight: '20px'}} onClick={() => nextRound()}> New round </button>
       </div>
       
        <h4 style={{color: 'white', margin: 0, marginBottom: '10px'}}><a style={{color: 'white'}} href='https://en.wikipedia.org/wiki/Codenames_(board_game)'>About the game</a></h4>

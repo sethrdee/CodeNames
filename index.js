@@ -25,26 +25,26 @@ io.on('connection', socket => {
   console.log("New client "+socket.id+" connected");
   //Give socket all the current data
   socket.emit("outgoing data", data); 
-  socket.emit("outgoing turn change", redsTurn)
+  socket.emit("outgoing turn change", redsTurn);
   
-  socket.on('change data', () => {
+  socket.on('new round', () => {
     data = getFileWords();
-    io.sockets.emit("outgoing data", data);
-  })
+    io.sockets.emit("outgoing new data", data);
+  });
   
   socket.on('update data', (newData) => {
     data = newData;
     io.sockets.emit("outgoing data", data);
-  })
+  });
   
   socket.on('change turn', () => {
     redsTurn = !redsTurn;
     io.sockets.emit("outgoing turn change", redsTurn);
-  })
+  });
 
   socket.on('disconnect', () => {
     console.log("Client "+socket.id+" disconnected");
-  })
+  });
 })
 
 server.listen(port, function(){
