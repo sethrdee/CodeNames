@@ -1,8 +1,3 @@
-/*TODO: 
-player 1 is always red and doesnt switch player 1 between games
-doesnt enforce bad clicks- bomb click is end of game, wrong guesses, etc
-*/
-
 import React, {useState, useEffect} from 'react';
 import socketIOClient from 'socket.io-client'
 import Switch from "react-switch";
