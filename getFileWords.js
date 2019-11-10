@@ -1,4 +1,4 @@
-const tempWordBank =  require('./tempWordBank');
+const tempWordBank =  require('./normalWordBank');
 const lines = tempWordBank.split("\n");
 
 const getFileWords = () => {
