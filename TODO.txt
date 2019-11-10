@@ -2,12 +2,8 @@
 	-Enforce turn timer
 	-Change board size
 	-Change game mode (normal mode, hard mode, themed modes, etc)
-2) Save clicks into board state
-3) Swap between teams for 1st turn of new games
-4) Enforce bad clicks (go to next turn)
-5) Party lobbies (think jackbox games)
+2) Party lobbies (think jackbox games)
 	-You can chose your team color from here/maybe a team name and player name
-6) Win/loss counter just for that game session
-7) Game score boards (Maybe wins for team with "name". This isnt enforceable though)
-8) New game doesnt turn off spy master for everyone
-9) Fun audio sounds for winning/losing
+3) Win/loss counter just for that game session
+4) Game score boards (Maybe wins for team with "name". This isnt enforceable though)
+5) Fun audio sounds for winning/losing, bad/good turns
