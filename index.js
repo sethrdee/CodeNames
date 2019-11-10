@@ -29,6 +29,8 @@ io.on('connection', socket => {
   
   socket.on('new round', () => {
     data = getFileWords();
+    redsTurn = true;
+    io.sockets.emit("outgoing turn change", redsTurn);
     io.sockets.emit("outgoing new data", data);
   });
   
