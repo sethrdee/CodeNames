@@ -37,10 +37,18 @@ const App = () => {
   useEffect(() => {  
     const handleClick = (tileNum) => {
       //console.log(tileNum);
-        if (!spymaster) {
+        
+        if (!spymaster && !words[tileNum].clicked) {
+          //Make tile changed to clicked state
           let newWords = JSON.parse(JSON.stringify(words));
           newWords[tileNum].clicked = true;
           socket.emit("update data", newWords);
+          
+          //If its a not the teams color, switch to other teams turn
+          if ((redsTurn && words[tileNum].title != "p1") ||
+              (!redsTurn && words[tileNum].title != "p2")) {
+            changeTurn();
+          }
         }
     }
     
