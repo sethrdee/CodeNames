@@ -9,9 +9,16 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 const getFileWords = require ('./getFileWords');
-let data = getFileWords();
-
+let redIsP1 = true;
 let redsTurn = true;
+
+const getWords = () => {
+  let p1Color = redIsP1? "red" : "blue";
+  let p2Color = (!redIsP1)? "red" : "blue";
+  return getFileWords(p1Color, p2Color);
+}
+
+let data = getWords();
 
 // Serve the static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -28,8 +35,9 @@ io.on('connection', socket => {
   socket.emit("outgoing turn change", redsTurn);
   
   socket.on('new round', () => {
-    data = getFileWords();
-    redsTurn = true;
+    data = getWords();
+    redsTurn = redIsP1;
+    redIsP1 = !redIsP1; //Toggle starting color
     io.sockets.emit("outgoing turn change", redsTurn);
     io.sockets.emit("outgoing new data", data);
   });

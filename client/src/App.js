@@ -45,8 +45,8 @@ const App = () => {
           socket.emit("update data", newWords);
           
           //If its a not the teams color, switch to other teams turn
-          if ((redsTurn && words[tileNum].title != "p1") ||
-              (!redsTurn && words[tileNum].title != "p2")) {
+          if ((redsTurn && words[tileNum].title != "red") ||
+              (!redsTurn && words[tileNum].title != "blue")) {
             changeTurn();
           }
         }
@@ -86,9 +86,9 @@ const App = () => {
 
       <div style={{display: 'flex', justifyContent: 'space-between', marginLeft: '20px'}}>
         <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-          <h2 style={{color: 'red', margin: 0}}>{getCountFor("p1")}</h2> 
+          <h2 style={{color: 'red', margin: 0}}>{getCountFor("red")}</h2> 
           <h2 style={{color: 'white', margin: 0}}>-</h2> 
-          <h2 style={{color: 'blue', margin: 0}}>{getCountFor("p2")}</h2> 
+          <h2 style={{color: 'blue', margin: 0}}>{getCountFor("blue")}</h2> 
          </div>
         
         <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
@@ -137,10 +137,10 @@ const Square = ({word, spymaster, handleClick}) => {
   
   if (spymaster || word.clicked) {
     switch (word.title) {
-      case "p1":
+      case "red":
         textColor = "red";
         break;
-      case "p2":
+      case "blue":
         textColor = "blue";
         break;
       case "bomb":

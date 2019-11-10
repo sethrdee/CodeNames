@@ -1,7 +1,7 @@
 const tempWordBank =  require('./normalWordBank');
 const lines = tempWordBank.split("\n");
 
-const getFileWords = () => {
+const getFileWords = (p1, p2) => {
   let randomized = lines.sort(() => 0.5 - Math.random()).slice(0,25);
   let player1Count = 9;
   let player2Count = 8;
@@ -14,10 +14,10 @@ const getFileWords = () => {
 
     if (player1Count > 0) {
      player1Count-= 1;
-     tiles.push({title: "p1", tileHeader: word, clicked: false});
+     tiles.push({title: p1, tileHeader: word, clicked: false});
     } else if (player2Count > 0) {
       player2Count-= 1;
-     tiles.push({title: "p2", tileHeader: word, clicked: false});
+     tiles.push({title: p2, tileHeader: word, clicked: false});
     } else if (bombCount > 0) {
      bombCount-= 1;
      tiles.push({title: "bomb", tileHeader: word, clicked: false});
