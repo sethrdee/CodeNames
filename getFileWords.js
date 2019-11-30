@@ -1,7 +1,22 @@
-const tempWordBank =  require('./normalWordBank');
-const lines = tempWordBank.split("\n");
+const normalWordBank =  require('./normalWordBank');
+const hardWordBank =  require('./hardWordBank');
+const dndWordBank =  require('./dndWordBank');
 
-const getFileWords = (p1, p2) => {
+const normalLines = normalWordBank.split("\n");
+const hardLines = hardWordBank.split("\n");
+const dndLines = dndWordBank.split("\n");
+
+const getFileWords = (gameType, p1, p2) => {
+  let lines;
+  
+  if (gameType === "hard") {
+    lines = hardLines
+  } else if (gameType === "dnd") {
+    lines = dndLines
+  } else {
+    lines = normalLines
+  }
+  
   let randomized = lines.sort(() => 0.5 - Math.random()).slice(0,25);
   let player1Count = 9;
   let player2Count = 8;

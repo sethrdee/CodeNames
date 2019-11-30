@@ -12,10 +12,10 @@ const getFileWords = require ('./getFileWords');
 let redIsP1 = true;
 let redsTurn = true;
 
-const getWords = () => {
+const getWords = (gameType="normal") => {
   let p1Color = redIsP1? "red" : "blue";
   let p2Color = (!redIsP1)? "red" : "blue";
-  return getFileWords(p1Color, p2Color);
+  return getFileWords(gameType, p1Color, p2Color);
 }
 
 let data = getWords();
@@ -34,8 +34,8 @@ io.on('connection', socket => {
   socket.emit("outgoing data", data); 
   socket.emit("outgoing turn change", redsTurn);
   
-  socket.on('new round', () => {
-    data = getWords();
+  socket.on('new round', (gameType) => {
+    data = getWords(gameType);
     redsTurn = redIsP1;
     redIsP1 = !redIsP1; //Toggle starting color
     io.sockets.emit("outgoing turn change", redsTurn);

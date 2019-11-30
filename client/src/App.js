@@ -41,8 +41,8 @@ const App = () => {
     });
   }, []);
  
-  const nextRound = () => {
-    socket.emit("new round");  
+  const nextRound = (gameType) => {
+    socket.emit("new round", gameType);  
   }
   
   const changeTurn = () => socket.emit("change turn"); 
@@ -138,12 +138,18 @@ const App = () => {
       }
       </div>
      
-      <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
-        <div>
-        <p style={{color: 'white', margin: '5px'}}> Spymaster View: </p>
-        <Switch offColor="#5d0101" onColor="#005300" onChange={() => setSpymaster(!spymaster)} checked={spymaster} />
+      <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <div style={{display: 'flex', alignItems: 'center'}}>
+          <p style={{color: 'white', margin: '5px'}}> Game Types (resets game): </p>
+          <button style={{marginLeft: '20px', marginRight: '20px'}} onClick={() => nextRound("normal")}> Normal </button>
+          <button style={{marginLeft: '20px', marginRight: '20px'}} onClick={() => nextRound("hard")}> Hard </button>
+          <button style={{marginLeft: '20px', marginRight: '20px'}} onClick={() => nextRound("dnd")}> D&D </button>
         </div>
-        <button style={{marginLeft: '20px', marginRight: '20px'}} onClick={() => nextRound()}> New round </button>
+      
+        <div>
+          <p style={{color: 'white', margin: '5px'}}> Spymaster View: </p>
+          <Switch offColor="#5d0101" onColor="#005300" onChange={() => setSpymaster(!spymaster)} checked={spymaster} />
+        </div>
       </div>
       
        <h4 style={{color: 'white', margin: 0, marginBottom: '10px'}}><a style={{color: 'white'}} href='https://en.wikipedia.org/wiki/Codenames_(board_game)'>About the game</a></h4>
