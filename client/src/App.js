@@ -2,6 +2,10 @@ import React, {useState, useEffect} from 'react';
 import socketIOClient from 'socket.io-client'
 import Switch from "react-switch";
 import './App.css';
+import badSound from './assets/badSound.mp3';
+import goodSound from './assets/goodSound.mp3';
+import explosion from './assets/explosion.mp3';
+import whoosh from './assets/whoosh.mp3';
 
 //const socket = socketIOClient("localhost:5000");
 const socket = socketIOClient();
@@ -15,16 +19,30 @@ const App = () => {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    socket.on("outgoing data", data => setWords(data));
+    socket.on("outgoing data", data => {
+      setWords(data);
+    });
     socket.on("outgoing new data", data => {
       setSpymaster(false);
-      setWords(data)
+      setWords(data);
+      (new Audio(whoosh)).play(); 
     });
-    socket.on("outgoing turn change", turn => setRedsTurn(turn));
+    socket.on("outgoing turn change", turn => {
+      setRedsTurn(turn)
+    });
+    socket.on("play click sound", (color) => {
+      if(color==="good") {
+        (new Audio(goodSound)).play();
+      } else if (color==="explosion") {
+        (new Audio(explosion)).play();
+      } else {
+        (new Audio(badSound)).play();
+      }
+    });
   }, []);
  
   const nextRound = () => {
-    socket.emit("new round");   
+    socket.emit("new round");  
   }
   
   const changeTurn = () => socket.emit("change turn"); 
@@ -40,9 +58,16 @@ const App = () => {
           socket.emit("update data", newWords);
           
           //If its a not the teams color, switch to other teams turn
-          if ((redsTurn && words[tileNum].title != "red") ||
-              (!redsTurn && words[tileNum].title != "blue")) {
+          if ((redsTurn && words[tileNum].title !== "red") ||
+              (!redsTurn && words[tileNum].title !== "blue")) {
             changeTurn();
+            if (words[tileNum].title === "bomb") {
+              socket.emit("play sound", "explosion");
+            } else {
+              socket.emit("play sound", "bad");
+            }
+          } else {
+            socket.emit("play sound", "good");
           }
         }
     }
@@ -72,7 +97,7 @@ const App = () => {
   
   const getCountFor = (color) => {
     //Tile matches color and is not clicked yet, counts as one
-    return words.reduce((acc, w) => (w.title==color && !w.clicked)? acc+1 : acc, 0);    
+    return words.reduce((acc, w) => (w.title===color && !w.clicked)? acc+1 : acc, 0);    
   }
   
   return (

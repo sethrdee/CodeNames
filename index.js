@@ -55,6 +55,10 @@ io.on('connection', socket => {
   socket.on('disconnect', () => {
     console.log("Client "+socket.id+" disconnected");
   });
+  
+  socket.on('play sound', (value) => {
+    io.sockets.emit("play click sound", value);
+  });
 })
 
 server.listen(port, function(){
