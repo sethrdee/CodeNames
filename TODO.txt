@@ -7,3 +7,4 @@
 3) Win/loss counter just for that game session
 4) Game score boards (Maybe wins for team with "name". This isnt enforceable though)
 5) Fun audio sounds for winning/losing, bad/good turns
+6) Create a link that you can click to copy the words listed, so that the players can choose to paste them into a word dock
